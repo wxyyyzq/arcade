@@ -1,7 +1,28 @@
+import os
+import sys
 import random
 import arcade
 import math
 from arcade.gui import UIManager, UITextureButton, UIAnchorLayout, UIBoxLayout
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        assets_path = os.path.join(os.path.dirname(base_path), "Assets")
+        if os.path.exists(assets_path):
+            test_path = os.path.join(os.path.dirname(base_path), relative_path)
+            if os.path.exists(test_path):
+                return test_path
+            test_path = os.path.join(base_path, relative_path)
+            if os.path.exists(test_path):
+                return test_path
+
+    full_path = os.path.join(base_path, relative_path)
+    return full_path
+
 
 CROCO_SCALE = 0.9
 TEETH_SCALE = 0.9
@@ -39,7 +60,7 @@ class CrocodileClosed(arcade.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
         self.scale = CROCO_SCALE
-        self.texture = arcade.load_texture("Assets/images/croco_close.png")
+        self.texture = arcade.load_texture(resource_path("Assets/images/croco_close.png"))
         self.center_x = screen_width // 2
         self.center_y = screen_height // 2
 
@@ -48,7 +69,7 @@ class CrocodileOpen(arcade.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
         self.scale = CROCO_SCALE
-        self.texture = arcade.load_texture("Assets/images/croco_open.png")
+        self.texture = arcade.load_texture(resource_path("Assets/images/croco_open.png"))
         self.center_x = screen_width // 2
         self.center_y = screen_height // 2
 
@@ -57,7 +78,7 @@ class Tooth(arcade.Sprite):
     def __init__(self, x, y, is_bad=False):
         super().__init__()
         self.scale = TEETH_SCALE
-        self.texture = arcade.load_texture("Assets/images/teeth.png")
+        self.texture = arcade.load_texture(resource_path("Assets/images/teeth.png"))
         self.center_x = x
         self.center_y = y
         self.is_pressed = False
@@ -69,7 +90,7 @@ class ToothPressed(arcade.Sprite):
     def __init__(self, x, y, player_index):
         super().__init__()
         self.scale = TEETH_SCALE
-        self.texture = arcade.load_texture("Assets/images/teeth_pressed.png")
+        self.texture = arcade.load_texture(resource_path("Assets/images/teeth_pressed.png"))
         self.center_x = x
         self.center_y = y
         self.is_pressed = True
@@ -80,7 +101,7 @@ class BlueAngle(arcade.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
         self.scale = 1
-        self.texture = arcade.load_texture("Assets/images/blue_angle.png")
+        self.texture = arcade.load_texture(resource_path("Assets/images/blue_angle.png"))
         self.center_x = screen_width - 70
         self.center_y = screen_height - 70
 
@@ -89,7 +110,7 @@ class RedAngle(arcade.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
         self.scale = 1
-        self.texture = arcade.load_texture("Assets/images/red_angle.png")
+        self.texture = arcade.load_texture(resource_path("Assets/images/red_angle.png"))
         self.center_x = 70
         self.center_y = 70
 
@@ -108,7 +129,7 @@ class CrocoGame(arcade.Window):
 
         self.setup_ui()
 
-        self.click_sound = arcade.load_sound("Assets/sound/button-dry-clear-close-bright.wav")
+        self.click_sound = arcade.load_sound(resource_path("Assets/sound/button-dry-clear-close-bright.wav"))
         self.game_over_sound = arcade.load_sound(":resources:sounds/gameover2.wav")
         self.confetti_sound = arcade.load_sound(":resources:sounds/upgrade1.wav")
 
@@ -126,10 +147,13 @@ class CrocoGame(arcade.Window):
         self.anchor_layout.add(self.box_layout)
         self.manager.add(self.anchor_layout)
 
-        menu_button = UITextureButton(texture=arcade.load_texture("Assets/images/menu_icon.png"), scale=0.2)
+        # Используем resource_path для иконок кнопок
+        menu_button = UITextureButton(texture=arcade.load_texture(resource_path("Assets/images/menu_icon.png")),
+                                      scale=0.2)
         self.box_layout.add(menu_button)
 
-        self.again_button = UITextureButton(texture=arcade.load_texture("Assets/images/vor.png"), scale=0.8)
+        self.again_button = UITextureButton(texture=arcade.load_texture(resource_path("Assets/images/vor.png")),
+                                            scale=0.8)
         self.again_button.on_click = self.restart_game
         self.box_layout.add(self.again_button)
 
@@ -169,7 +193,7 @@ class CrocoGame(arcade.Window):
         if self.background_music_player:
             arcade.stop_sound(self.background_music_player)
 
-        self.background_music = arcade.load_sound("Assets/sound/background_crocodile.mp3")
+        self.background_music = arcade.load_sound(resource_path("Assets/sound/background_crocodile.mp3"))
         self.background_music_player = arcade.play_sound(self.background_music, loop=True)
 
     def restart_game(self, event=None):
