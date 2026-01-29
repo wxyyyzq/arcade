@@ -1,6 +1,7 @@
 import arcade
 import random
 import math
+from croco_game import resource_path
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -50,10 +51,9 @@ class SnakeBattle(arcade.Window):
 
     def setup(self):
         try:
-            self.menu_bg = arcade.load_texture("snakes_menu_bg.png")
+            self.menu_bg = arcade.load_texture(resource_path("Assets/images/snakes_menu_bg.png"))
         except:
-            self.menu_bg = None
-
+            pass
         self.player1 = Snake(100, 300, arcade.color.ELECTRIC_CRIMSON)
         self.player2 = Snake(500, 300, arcade.color.CYAN)
         self.player2.change_x = -CELL_SIZE
