@@ -4,7 +4,9 @@ import math
 from arcade.gui import UIManager, UITextureButton, UILabel
 from arcade.gui.widgets.layout import UIAnchorLayout, UIBoxLayout
 from arcade.particles import FadeParticle, Emitter, EmitBurst
-from pyglet.resource import texture
+import os
+import sys
+from croco_game import resource_path
 
 OBJECT_SPEED = 5
 CAR_SCALE = 1.25
@@ -16,10 +18,10 @@ class Car(arcade.Sprite):
         super().__init__()
         self.scale = CAR_SCALE
         self.texture = random.choice([
-            arcade.load_texture("Assets/images/car_red_tires.png"),
-            arcade.load_texture("Assets/images/tank_red.png"),
-            arcade.load_texture("Assets/images/tank_blue.png"),
-            arcade.load_texture("Assets/images/car_cyan_tires.png")
+            arcade.load_texture(resource_path("Assets/images/car_red_tires.png")),
+            arcade.load_texture(resource_path("Assets/images/tank_red.png")),
+            arcade.load_texture(resource_path("Assets/images/tank_blue.png")),
+            arcade.load_texture(resource_path("Assets/images/car_cyan_tires.png"))
         ])
         self.spawn_outside_screen()
         self.set_direction()
@@ -39,16 +41,16 @@ class Car(arcade.Sprite):
 
         offset = 50
         side = random.randint(0, 3)
-        if side == 0:  
+        if side == 0:  # Сверху
             self.center_x = random.uniform(0, screen_width)
             self.center_y = screen_height + offset
-        elif side == 1:  
+        elif side == 1:  # Справа
             self.center_x = screen_width + offset
             self.center_y = random.uniform(0, screen_height)
-        elif side == 2:  
+        elif side == 2:  # Снизу
             self.center_x = random.uniform(0, screen_width)
             self.center_y = 0 - offset
-        else:  
+        else:  # Слева
             self.center_x = 0 - offset
             self.center_y = random.uniform(0, screen_height)
 
@@ -74,10 +76,13 @@ class MyGame(arcade.Window):
         self.current_sprites = None
         self.explosion_emitters = []
         self.explosion_textures = [
-            arcade.load_texture("Assets/images/explosion1.png"),
-            arcade.load_texture("Assets/images/explosion2.png"),
-            arcade.load_texture("Assets/images/explosion3.png")
+            arcade.load_texture(resource_path("Assets/images/explosion1.png")),
+            arcade.load_texture(resource_path("Assets/images/explosion2.png")),
+            arcade.load_texture(resource_path("Assets/images/explosion3.png"))
         ]
+
+        self.background_music_player = None
+        self.closing = False
 
         self.manager = UIManager()
         self.manager.enable()
@@ -107,8 +112,19 @@ class MyGame(arcade.Window):
 
         self.manager.add(self.anchor_layout)
 
-        music = arcade.load_sound("Assets/sound/background_menu.wav")
-        arcade.play_sound(music, loop=True)
+        self.start_background_music()
+
+    def start_background_music(self):
+        if self.background_music_player:
+            arcade.stop_sound(self.background_music_player)
+
+        music = arcade.load_sound(resource_path("Assets/sound/background_menu.wav"))
+        self.background_music_player = arcade.play_sound(music, loop=True)
+
+    def stop_background_music(self):
+        if self.background_music_player:
+            arcade.stop_sound(self.background_music_player)
+            self.background_music_player = None
 
     def setup_widgets(self):
         info_label_red = UILabel(
@@ -119,10 +135,16 @@ class MyGame(arcade.Window):
             align="left"
         )
         self.box_layout1.add(info_label_red)
-        press_blue = UITextureButton(texture=arcade.load_texture("Assets/images/wasd.png"), scale=0.8)
+
+        press_blue = UITextureButton(
+            texture=arcade.load_texture(resource_path("Assets/images/wasd.png")),
+            scale=0.8
+        )
         self.box_layout1.add(press_blue)
 
-        player_red = UITextureButton(texture=arcade.load_texture("Assets/images/red_player.png"))
+        player_red = UITextureButton(
+            texture=arcade.load_texture(resource_path("Assets/images/red_player.png"))
+        )
         self.box_layout1.add(player_red)
 
         label = UILabel(
@@ -138,23 +160,46 @@ class MyGame(arcade.Window):
         self.hor_andrew_layout = UIBoxLayout(vertical=False, space_between=80)
         self.box_layout2.add(self.hor_andrew_layout)
 
-        texture_bombs = arcade.load_texture("Assets/images/bombs.png")
+        texture_bombs = arcade.load_texture(resource_path("Assets/images/bombs.png"))
         bombs_button = UITextureButton(texture=texture_bombs, scale=0.8)
         self.hor_andrew_layout.add(bombs_button)
 
-        texture_tanks = arcade.load_texture("Assets/images/tanks.png")
+        texture_tanks = arcade.load_texture(resource_path("Assets/images/tanks.png"))
         tanks_button = UITextureButton(texture=texture_tanks, scale=0.8)
         self.hor_andrew_layout.add(tanks_button)
 
         self.hor_anna_layout = UIBoxLayout(vertical=False, space_between=80)
         self.box_layout2.add(self.hor_anna_layout)
 
-        texture_crocodile = arcade.load_texture("Assets/images/crocodile.png")
+        texture_crocodile = arcade.load_texture(resource_path("Assets/images/crocodile.png"))
         crocodile_button = UITextureButton(texture=texture_crocodile, scale=0.8)
+
+        def on_crocodile_click(event):
+            self.stop_background_music()
+            self.manager.disable()
+            self.closing = True
+            self.close()
+            import croco_game
+            game = croco_game.CrocoGame()
+            arcade.run()
+
+        crocodile_button.on_click = on_crocodile_click
         self.hor_anna_layout.add(crocodile_button)
 
-        texture_race = arcade.load_texture("Assets/images/race.png")
+        texture_race = arcade.load_texture(resource_path("Assets/images/race.png"))
         race_button = UITextureButton(texture=texture_race, scale=0.8)
+
+        def on_race_click(event):
+            self.stop_background_music()
+            self.manager.disable()
+            self.closing = True
+            self.close()
+            import races_game
+            game = races_game.Races()
+            game.setup()
+            arcade.run()
+
+        race_button.on_click = on_race_click
         self.hor_anna_layout.add(race_button)
 
         info_label_blue = UILabel(
@@ -166,10 +211,15 @@ class MyGame(arcade.Window):
         )
         self.box_layout3.add(info_label_blue)
 
-        press_red = UITextureButton(texture=arcade.load_texture("Assets/images/strelochki.png"), scale=0.8)
+        press_red = UITextureButton(
+            texture=arcade.load_texture(resource_path("Assets/images/strelochki.png")),
+            scale=0.8
+        )
         self.box_layout3.add(press_red)
 
-        player_blue = UITextureButton(texture=arcade.load_texture("Assets/images/blue_player.png"))
+        player_blue = UITextureButton(
+            texture=arcade.load_texture(resource_path("Assets/images/blue_player.png"))
+        )
         self.box_layout3.add(player_blue)
 
     def make_explosion(self, x, y, count=80):
@@ -187,6 +237,8 @@ class MyGame(arcade.Window):
         )
 
     def on_draw(self):
+        if self.closing:
+            return
         self.clear()
         self.current_sprites.draw()
         for emitter in self.explosion_emitters:
@@ -195,6 +247,9 @@ class MyGame(arcade.Window):
         self.manager.draw()
 
     def on_update(self, delta_time):
+        if self.closing:
+            return
+
         self.current_sprites.update(delta_time)
 
         explosions_to_remove = []
@@ -219,6 +274,8 @@ class MyGame(arcade.Window):
             self.current_sprites.append(new_car)
 
     def on_mouse_press(self, x, y, button, modifiers):
+        if self.closing:
+            return
         if button == arcade.MOUSE_BUTTON_LEFT:
             clicked_sprites = arcade.get_sprites_at_point((x, y), self.current_sprites)
             for car in clicked_sprites:
@@ -237,9 +294,10 @@ class MyGame(arcade.Window):
 
                 car.remove_from_sprite_lists()
 
-
     def on_key_press(self, symbol, modifiers):
         if symbol == arcade.key.ESCAPE:
+            self.stop_background_music()
+            self.manager.disable()
             arcade.close_window()
 
 
