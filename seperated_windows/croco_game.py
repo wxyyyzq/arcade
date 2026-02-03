@@ -147,13 +147,27 @@ class CrocoGame(arcade.Window):
         self.anchor_layout.add(self.box_layout)
         self.manager.add(self.anchor_layout)
 
-        # Используем resource_path для иконок кнопок
-        menu_button = UITextureButton(texture=arcade.load_texture(resource_path("Assets/images/menu_icon.png")),
-                                      scale=0.2)
+        menu_button = UITextureButton(
+            texture=arcade.load_texture(resource_path("Assets/images/menu_icon.png")),
+            scale=0.2
+        )
+
+        def on_menu_click(event):
+            if self.background_music_player:
+                arcade.stop_sound(self.background_music_player)
+            self.manager.disable()
+            self.close()
+            import interface
+            menu_window = interface.MyGame()
+            arcade.run()
+
+        menu_button.on_click = on_menu_click
         self.box_layout.add(menu_button)
 
-        self.again_button = UITextureButton(texture=arcade.load_texture(resource_path("Assets/images/vor.png")),
-                                            scale=0.8)
+        self.again_button = UITextureButton(
+            texture=arcade.load_texture(resource_path("Assets/images/vor.png")),
+            scale=0.8
+        )
         self.again_button.on_click = self.restart_game
         self.box_layout.add(self.again_button)
 
