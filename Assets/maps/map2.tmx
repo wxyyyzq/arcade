@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="55" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="10">
+ <tileset firstgid="1" source="road_tiles.tsx"/>
+ <layer id="1" name="ground" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzwENwCAUxFCS+bcA8zLwwqZi30aPNqmA16/WRuB3/dQz8HWQLSFtzLQx08ZMGzNtzLQx08ZMGzNtzLQx08bsRFvS6bZdv4F/9Q97z3CG
+  </data>
+ </layer>
+ <layer id="2" name="road" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztl8ENgCAQBAnWQTM2YzN2JkX5Nz7uBOJtbjaZL9xkgYRSCImbq+qDmyar3M5t/qyHc0160wQ3TbxubcEbEcVNiYxuvdoZ2X+fdMbf7oqlt+f8oz5/95bFTRXcNMFNE9x8eP+QFr78delNk4xuhETIDVS+qtE=
+  </data>
+ </layer>
+ <layer id="3" name="fance" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztWEsKwjAUbD2lnkNd6lKhFdfqUpcKLryIgorgRVw6RR9ISV/S+NokmoGhkKQzmX7SlyZJfdxTi5McaFqhE4jmnyDDtcvBWaDHOXPv946eiz58B+DwS/+Dh9kW8F2Cqx/MJoWYLUzEbHpk77WXI7cml7VyDUlLNUfKJJXNZCznZasVs9l5fI6doL6dKmpcai+8umCvQpf6fMy2xfx3imzUXniNwHGFLvX5mO2I+Z8U2ai98FqDmwpd6vMx2yN9sQxqD/l9M52PpFbMZudBOGPsRcOboV4dLYlsUnuqNmGaTWpP1SZirdwMuBpFAi6zcTWKBFxm42oUCXDZaC2+Bno0/ebo0NQ/bi/+nTf1bHmwVodw354pbsPe
+  </data>
+ </layer>
+ <layer id="4" name="on_finish" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztlssNwjAQRCcfCUItQDUUAXRAMxQBNygGDvxpgrmgIBRFsWQrmdU+aQ72wdYc/NZAeg45cMzjnzsqgDFTFfHP7sqJvc4Juk3ZacbMW7otEtw7FDaGu20Nd3M0cZdo4i4ZBkvO6dVf1j3+S2IS2k3JJaHdvi65ZcCdeTBP5sW8s+b9vgjtpuQSf2+auEtqlP4lll2yY499QxxbKLkkFCWXhKLkEscmF86D689MsOSSqgQmZb12l+jxAcfeM48=
+  </data>
+ </layer>
+ <layer id="6" name="finish" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzrENABAUBFCfyv6rGIsd1BKhpHivu8sVlxIAAHDTY80173cj9j0Af2rl9QMAgLMJ0QACng==
+  </data>
+ </layer>
+ <layer id="7" name="collusion" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAB4NBnIAAE=
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="55" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="11">
+ <tileset firstgid="1" source="road_tiles.tsx"/>
+ <layer id="1" name="ground" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztz1ERABAQQEEz+ldAF3RBClfj3byPDbCtltITGmGGldD2huSNyRuTNyZvTN6YvDF5Y/LG5I3JG5M3Jm9M2W8n3IRe+FEFAuo=
+  </data>
+ </layer>
+ <layer id="2" name="road" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1+EJQBEUhmExh2UsYxmbMZQFlNDRR+9b57/nnpTrHBGRbdXrDzZ7Wwn/2l7YWzT4/io2pcGG7fakyd3erfmzeW1vozPfcmDbt6kNtjWbytuEvdnbMv8B2LARER3XAXDYjlQ=
+  </data>
+ </layer>
+ <layer id="3" name="fance" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztV11qwzAMTnKJQc8y2FkK+zvLBnvpeoOtr+nIHtqcoy27SreXyWSimpBlx3EhyvbBBw2yjD7Jlqui+IdV1GVRrMvTdwO/38tp2F+rjoiXqiNiVXVEWFv/1/AA2h9HzKcBtalHXtcmEN+M2Jflb5slbTx2hytibw1qW/zEzGN3uFbit6BtI2iKgQVtFBdKvK6+9NwO1Rbqs0P6nAO/b5fKfq6+bUZtIf9QnwuhYb1i7tnvWTi3ObXVwDXwzRNbCmL9t0Qb9p6c2nbAPfCQEJsP1H8R2VM2Z9B2BH4CvzyxpYD6S/1ypuxv6b5pb7dkG6ptB/57hR+ZewkHvt3Utsx0Js+NlLq3E9aGsKRNulOazZI26b5pNivaYt82Civa+swCmAfXww8jZp83BO9cTB58dzfmfKScIQr+3xdjkWYcbXalvhS+tTwvkq+UO63PcWzZWoxFmnFCdeI6XC6kuQFtmq/PR6ulppvG4Ztx+sDlgueO2lL20/y0/PjicLippsFb4B3wnnx/AxnY1sM=
+  </data>
+ </layer>
+ <layer id="4" name="on_finish" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzqERADAIADGKY/852aErIKjpJfbNRwAAABsqZ73P+xcAAAD+cAGZtQEF
+  </data>
+ </layer>
+ <layer id="5" name="finish" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztyLkRADAIwDDYf8+8S4QRSC/duXEEAADwa2TErFa1q1Pd7H8AAADoeNJfDpU=
+  </data>
+ </layer>
+ <layer id="6" name="collusion" width="55" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAB4NBnIAAE=
+  </data>
+ </layer>
+ <objectgroup id="7" name="checkpoints">
+  <object id="4" x="111" y="146" width="262" height="32"/>
+  <object id="7" x="515" y="184" width="248" height="24"/>
+  <object id="8" x="371" y="288" width="27" height="108"/>
+  <object id="9" x="124" y="233" width="244" height="7"/>
+ </objectgroup>
+</map>
