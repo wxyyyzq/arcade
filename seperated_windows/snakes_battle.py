@@ -2,6 +2,7 @@ import arcade
 import random
 import math
 from croco_game import resource_path
+from interface import count_of_blue, count_of_red
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -263,8 +264,10 @@ class SnakeBattle(arcade.Window):
             for h, c in [(h1, self.player1.color), (h2, self.player2.color)]:
                 for _ in range(25): self.particles.append(Particle(h[0] + CELL_SIZE / 2, h[1] + CELL_SIZE / 2, c))
             if self.score1 > self.score2:
+                interface.count_of_red += 1
                 self.over_text.text = "COLLISION! RED PLAYER WINS!"
             elif self.score2 > self.score1:
+                interface.count_of_blue += 1
                 self.over_text.text = "COLLISION! BLUE PLAYER WINS!"
             else:
                 self.over_text.text = "COLLISION! IT'S A DRAW!"
