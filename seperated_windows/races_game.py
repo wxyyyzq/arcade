@@ -6,19 +6,19 @@ import random
 from arcade.gui import UIManager, UITextureButton, UIAnchorLayout, UIBoxLayout
 from croco_game import resource_path
 
-
-CARS_SCALE = 0.3
-CAR_SPEED = 4
+CARS_SCALE = 0.4
+CAR_SPEED = 5
 CAR_REVERSE_SPEED = 2
 ROTATION_SPEED = 3
 WINNING_LAPS = 3
 
-MAP1_CUSTOM_CHECKPOINTS = [(744, 350, 356, 8), (168, 362, 366, 8)]
-MAP2_CUSTOM_CHECKPOINTS = [(836, 76, 8, 157), (588, 297, 208, 8), (74, 362, 251, 8)]
+# (x, y, ширина, высота)
+MAP1_CUSTOM_CHECKPOINTS = [(1116, 539, 562, 8), (254, 543, 548, 8)]
+MAP2_CUSTOM_CHECKPOINTS = [(1352, 108, 8, 250), (836, 417, 318, 8), (114, 541, 372, 8)]
 
 MAP_CONFIGS = {
-    "map1": {"red_car_x": 290, "blue_car_x": 410, "both_car_y": 342, "custom_checkpoints": MAP1_CUSTOM_CHECKPOINTS},
-    "map2": {"red_car_x": 150, "blue_car_x": 240, "both_car_y": 342, "custom_checkpoints": MAP2_CUSTOM_CHECKPOINTS}
+    "map1": {"red_car_x": 436, "blue_car_x": 610, "both_car_y": 489, "custom_checkpoints": MAP1_CUSTOM_CHECKPOINTS},
+    "map2": {"red_car_x": 226, "blue_car_x": 366, "both_car_y": 489, "custom_checkpoints": MAP2_CUSTOM_CHECKPOINTS}
 }
 
 
