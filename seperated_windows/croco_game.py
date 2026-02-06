@@ -4,7 +4,7 @@ import random
 import arcade
 import math
 from arcade.gui import UIManager, UITextureButton, UIAnchorLayout, UIBoxLayout
-
+import interface
 
 def resource_path(relative_path):
     try:
@@ -25,7 +25,7 @@ def resource_path(relative_path):
 
 
 CROCO_SCALE = 0.9
-TEETH_SCALE = 1
+TEETH_SCALE = 0.9
 NUM_TEETH = 9
 
 
@@ -218,12 +218,12 @@ class CrocoGame(arcade.Window):
             (screen_width // 2 - 160, screen_height // 2 + 33),
             (screen_width // 2 - 175, screen_height // 2 - 33),
             (screen_width // 2 - 165, screen_height // 2 - 100),
-            (screen_width // 2 - 95, screen_height // 2 - 140),
-            (screen_width // 2, screen_height // 2 - 151),
-            (screen_width // 2 + 95, screen_height // 2 - 140),
-            (screen_width // 2 + 160, screen_height // 2 + 33),
+            (screen_width // 2 - 80, screen_height // 2 - 150),
+            (screen_width // 2, screen_height // 2 - 155),
+            (screen_width // 2 + 80, screen_height // 2 - 150),
+            (screen_width // 2 + 165, screen_height // 2 - 100),
             (screen_width // 2 + 175, screen_height // 2 - 33),
-            (screen_width // 2 + 165, screen_height // 2 - 100)
+            (screen_width // 2 + 160, screen_height // 2 + 33)
         ]
 
         for i, (x, y) in enumerate(teeth_coordinates):
@@ -277,6 +277,7 @@ class CrocoGame(arcade.Window):
 
         if self.game_over:
             self.manager.draw()
+
 
     def create_confetti_explosion(self, player_index):
         self.confetti_active = True
@@ -344,6 +345,10 @@ class CrocoGame(arcade.Window):
                     self.game_over = True
                     arcade.play_sound(self.game_over_sound)
                     self.winner_index = 1 - self.current_player
+                    if self.winner_index == 0:
+                        interface.count_of_red += 1
+                    elif self.winner_index == 1:
+                        interface.count_of_blue += 1
                     self.scores[self.winner_index] += 1
                     self.create_confetti_explosion(self.winner_index)
 
