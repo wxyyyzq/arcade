@@ -160,9 +160,21 @@ class MyGame(arcade.Window):
         self.hor_andrew_layout = UIBoxLayout(vertical=False, space_between=80)
         self.box_layout2.add(self.hor_andrew_layout)
 
-        texture_bombs = arcade.load_texture(resource_path("Assets/images/bombs.png"))
-        bombs_button = UITextureButton(texture=texture_bombs, scale=0.8)
-        self.hor_andrew_layout.add(bombs_button)
+        texture_snakes = arcade.load_texture(resource_path("Assets/images/snakes.png"))
+        snakes_button = UITextureButton(texture=texture_snakes, scale=0.27)
+        self.hor_andrew_layout.add(snakes_button)
+
+        def on_snakes_click(event):
+            self.stop_background_music()
+            self.manager.disable()
+            self.closing = True
+            self.close()
+            import snakes_battle
+            game = snakes_battle.SnakeBattle()
+            arcade.run()
+
+        snakes_button.on_click = on_snakes_click
+        self.hor_andrew_layout.add(snakes_button)
 
         texture_tanks = arcade.load_texture(resource_path("Assets/images/tanks.png"))
         tanks_button = UITextureButton(texture=texture_tanks, scale=0.8)
