@@ -25,7 +25,7 @@ def resource_path(relative_path):
 
 
 CROCO_SCALE = 0.9
-TEETH_SCALE = 0.9
+TEETH_SCALE = 1
 NUM_TEETH = 9
 
 
@@ -215,15 +215,15 @@ class CrocoGame(arcade.Window):
 
     def add_teeth(self, screen_width, screen_height):
         teeth_coordinates = [
-            (screen_width // 2 - 160, screen_height - 330),
-            (screen_width // 2 - 175, screen_height - 400),
-            (screen_width // 2 - 165, screen_height - 465),
-            (screen_width // 2 - 80, screen_height - 490),
-            (screen_width // 2, screen_height - 500),
-            (screen_width // 2 + 80, screen_height - 490),
-            (screen_width // 2 + 165, screen_height - 465),
-            (screen_width // 2 + 175, screen_height - 400),
-            (screen_width // 2 + 160, screen_height - 330)
+            (screen_width // 2 - 160, screen_height // 2 + 33),
+            (screen_width // 2 - 175, screen_height // 2 - 33),
+            (screen_width // 2 - 165, screen_height // 2 - 100),
+            (screen_width // 2 - 95, screen_height // 2 - 140),
+            (screen_width // 2, screen_height // 2 - 151),
+            (screen_width // 2 + 95, screen_height // 2 - 140),
+            (screen_width // 2 + 160, screen_height // 2 + 33),
+            (screen_width // 2 + 175, screen_height // 2 - 33),
+            (screen_width // 2 + 165, screen_height // 2 - 100)
         ]
 
         for i, (x, y) in enumerate(teeth_coordinates):
