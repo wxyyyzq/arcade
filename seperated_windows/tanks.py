@@ -5,7 +5,6 @@ import math
 from arcade.gui import UIManager, UITextureButton, UIAnchorLayout, UIBoxLayout
 
 import interface
-from croco_game import resource_path
 from interface import count_of_blue, count_of_red
 
 TANK_SCALE = 1
