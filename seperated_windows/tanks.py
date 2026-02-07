@@ -5,7 +5,7 @@ import math
 from arcade.gui import UIManager, UITextureButton, UIAnchorLayout, UIBoxLayout
 
 import interface
-from interface import count_of_blue, count_of_red
+
 
 def resource_path(relative_path):
     try:
