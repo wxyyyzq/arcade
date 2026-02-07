@@ -34,7 +34,7 @@ ROCKET_SPEED = 5
 class Tank_red(arcade.Sprite):
     def __init__(self):
         super(Tank_red, self).__init__()
-        self.texture = arcade.load_texture(f'Assets/images/tank_red.png')
+        self.texture = arcade.load_texture(resource_path(f'Assets/images/tank_red.png'))
         self.center_x = arcade.get_window().width // 2
         self.center_y = arcade.get_window().height // 4
 
@@ -64,7 +64,7 @@ class Tank_red(arcade.Sprite):
 class Tank_blue(arcade.Sprite):
     def __init__(self):
         super(Tank_blue, self).__init__()
-        self.texture = arcade.load_texture(f'Assets/images/tank_blue.png')
+        self.texture = arcade.load_texture(resource_path(f'Assets/images/tank_blue.png'))
         self.center_x = arcade.get_window().width // 2
         self.center_y = arcade.get_window().height * 3 // 4
 
@@ -141,7 +141,7 @@ class Rocket_blue(arcade.Sprite):
 class TankGame(arcade.Window):
     def __init__(self):
         super().__init__(fullscreen=True)
-        self.texture_back = arcade.load_texture(f'Assets/images/place_of_tanks.png')
+        self.texture_back = arcade.load_texture(resource_path(f'Assets/images/place_of_tanks.png'))
         self.setup()
         self.setup_ui()
         self.anchor_layout = None
