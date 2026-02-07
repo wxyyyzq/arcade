@@ -6,11 +6,28 @@ from arcade.gui.widgets.layout import UIAnchorLayout, UIBoxLayout
 from arcade.particles import FadeParticle, Emitter, EmitBurst
 import os
 import sys
-from croco_game import resource_path
 
 OBJECT_SPEED = 5
 CAR_SCALE = 1.25
 BUFFER_DISTANCE = 50
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        assets_path = os.path.join(os.path.dirname(base_path), "Assets")
+        if os.path.exists(assets_path):
+            test_path = os.path.join(os.path.dirname(base_path), relative_path)
+            if os.path.exists(test_path):
+                return test_path
+            test_path = os.path.join(base_path, relative_path)
+            if os.path.exists(test_path):
+                return test_path
+
+    full_path = os.path.join(base_path, relative_path)
+    return full_path
 
 
 class Car(arcade.Sprite):

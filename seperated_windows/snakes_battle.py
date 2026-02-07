@@ -1,8 +1,9 @@
 import arcade
 import random
 import math
-from croco_game import resource_path
-from interface import count_of_blue, count_of_red
+import os
+import sys
+#from interface import count_of_blue, count_of_red
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -13,6 +14,24 @@ MIN_SPEED = 0.04
 
 STATE_COUNTDOWN = 0
 STATE_GAME = 1
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        assets_path = os.path.join(os.path.dirname(base_path), "Assets")
+        if os.path.exists(assets_path):
+            test_path = os.path.join(os.path.dirname(base_path), relative_path)
+            if os.path.exists(test_path):
+                return test_path
+            test_path = os.path.join(base_path, relative_path)
+            if os.path.exists(test_path):
+                return test_path
+
+    full_path = os.path.join(base_path, relative_path)
+    return full_path
 
 
 class Particle:
@@ -54,7 +73,7 @@ class Snake:
 class SnakeBattle(arcade.Window):
     def __init__(self):
         super().__init__(fullscreen=True, title=SCREEN_TITLE)
-        #self.state = STATE_MENU
+        # self.state = STATE_MENU
         self.player1 = None
         self.player2 = None
         self.apple = None
@@ -74,14 +93,16 @@ class SnakeBattle(arcade.Window):
         self.title_text = arcade.Text("SNAKE BATTLE", 0, 0, arcade.color.NEON_GREEN, 50, anchor_x="center", bold=True)
         self.hint_text = arcade.Text("P1: Arrows | P2: WASD\n\nPRESS ENTER TO START\n\nESC TO EXIT",
                                      0, 0, arcade.color.WHITE, 16, anchor_x="center", multiline=True, width=500)
-        self.over_text = arcade.Text("", self.width / 2 , self.height / 2, arcade.color.GOLD, 35, anchor_x="center", bold=True)
-        self.countdown_text = arcade.Text("", self.width / 2 , self.height / 2, arcade.color.NEON_GREEN, 50, anchor_x="center", bold=True)
+        self.over_text = arcade.Text("", self.width / 2, self.height / 2, arcade.color.GOLD, 35, anchor_x="center",
+                                     bold=True)
+        self.countdown_text = arcade.Text("", self.width / 2, self.height / 2, arcade.color.NEON_GREEN, 50,
+                                          anchor_x="center", bold=True)
 
         self.setup()
 
     def setup(self):
 
-        #self.ctx.projection_2d = 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT
+        # self.ctx.projection_2d = 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT
 
         try:
             self.eat_sound = arcade.load_sound(resource_path("Assets/sound/snake_sounds/eat.wav"))
@@ -107,7 +128,6 @@ class SnakeBattle(arcade.Window):
         for _ in range(2):
             self.spawn_apple()
 
-
     def create_explosion(self, x, y, color):
         for _ in range(25):
             self.particles.append(Particle(x + CELL_SIZE / 2, y + CELL_SIZE / 2, color))
@@ -132,7 +152,7 @@ class SnakeBattle(arcade.Window):
         arcade.draw_rect_outline(arcade.rect.XYWH(self.width / 2, self.height / 2, SCREEN_WIDTH, SCREEN_HEIGHT),
                                  arcade.color.DARK_BLUE_GRAY, 2)
 
-        #if self.state == STATE_MENU:
+        # if self.state == STATE_MENU:
         #    if self.menu_bg:
         #        arcade.draw_texture_rect(self.menu_bg, arcade.rect.XYWH(off_x * 2, off_y * 2, 600, 600))
         #        arcade.draw_rect_filled(arcade.rect.XYWH(off_x * 2, off_y * 2, 600, 600), (0, 0, 0, 150))
@@ -140,7 +160,7 @@ class SnakeBattle(arcade.Window):
         #    self.title_text.draw()
         #    self.hint_text.draw()
 
-        #elif self.state == STATE_GAME:
+        # elif self.state == STATE_GAME:
         for x in range(0, SCREEN_WIDTH + 1, CELL_SIZE):
             arcade.draw_line(x + off_x, off_y, x + off_x, SCREEN_HEIGHT + off_y, arcade.color.DARK_BLUE_GRAY, 1)
         for y in range(0, SCREEN_HEIGHT + 1, CELL_SIZE):
@@ -168,15 +188,15 @@ class SnakeBattle(arcade.Window):
             c = arcade.color.NEON_GREEN
             apple_color = (c[0], c[1], c[2], alpha)
             for apple in self.apples:
-                arcade.draw_rect_filled(arcade.rect.XYWH(apple[0] + CELL_SIZE / 2 + off_x, apple[1] + CELL_SIZE / 2 + off_y,
-                                                        CELL_SIZE - 2, CELL_SIZE - 2), apple_color)
+                arcade.draw_rect_filled(
+                    arcade.rect.XYWH(apple[0] + CELL_SIZE / 2 + off_x, apple[1] + CELL_SIZE / 2 + off_y,
+                                     CELL_SIZE - 2, CELL_SIZE - 2), apple_color)
             self.player1.draw(off_x, off_y)
             self.player2.draw(off_x, off_y)
 
-
     def on_resize(self, width, height):
         super().on_resize(width, height)
-        #self.ctx.projection_2d = 0, width, 0, height
+        # self.ctx.projection_2d = 0, width, 0, height
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
@@ -207,7 +227,6 @@ class SnakeBattle(arcade.Window):
             self.player2.change_x, self.player2.change_y = -CELL_SIZE, 0
         elif (key == arcade.key.D or char in 'dв') and self.player2.change_x == 0:
             self.player2.change_x, self.player2.change_y = CELL_SIZE, 0
-
 
     def start_background_music(self):
         if self.is_music:
@@ -271,7 +290,6 @@ class SnakeBattle(arcade.Window):
                 self.over_text.text = "COLLISION! BLUE PLAYER WINS!"
             else:
                 self.over_text.text = "COLLISION! IT'S A DRAW!"
-
 
 
 if __name__ == "__main__":
