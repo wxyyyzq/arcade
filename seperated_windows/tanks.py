@@ -226,11 +226,9 @@ class TankGame(arcade.Window):
             if rocket.owner_color == "red" and arcade.check_for_collision(rocket, self.blue_tank):
                 self.game_over = True
                 self.winner = 'red'
-                interface.count_of_red += 1
             elif rocket.owner_color == "blue" and arcade.check_for_collision(rocket, self.red_tank):
                 self.game_over = True
                 self.winner = 'blue'
-                interface.count_of_blue += 1
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         if self.game_over:
