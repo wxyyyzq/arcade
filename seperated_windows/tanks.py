@@ -7,6 +7,23 @@ from arcade.gui import UIManager, UITextureButton, UIAnchorLayout, UIBoxLayout
 import interface
 from interface import count_of_blue, count_of_red
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        assets_path = os.path.join(os.path.dirname(base_path), "Assets")
+        if os.path.exists(assets_path):
+            test_path = os.path.join(os.path.dirname(base_path), relative_path)
+            if os.path.exists(test_path):
+                return test_path
+            test_path = os.path.join(base_path, relative_path)
+            if os.path.exists(test_path):
+                return test_path
+
+    full_path = os.path.join(base_path, relative_path)
+    return full_path
+
 TANK_SCALE = 1
 TANK_SPEED = 1.5
 
