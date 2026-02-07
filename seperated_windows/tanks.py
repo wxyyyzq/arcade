@@ -141,7 +141,7 @@ class Rocket_blue(arcade.Sprite):
 class TankGame(arcade.Window):
     def __init__(self):
         super().__init__(fullscreen=True)
-        self.texture_back = arcade.load_texture(resource_path(f'Assets/images/place_of_tanks.png'))
+        self.texture_back = arcade.load_texture(resource_path('Assets/images/place_of_tanks.png'))
         self.setup()
         self.setup_ui()
         self.anchor_layout = None
